@@ -1,0 +1,12 @@
+{
+  "name": "makeitsimple_app",
+  "displayName": "makeitsimple_app",
+  "expo": {
+    "name": "makeitsimple_app",
+    "slug": "makeitsimple_app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
