@@ -14,16 +14,10 @@ import { themes } from '../../Context/ThemeContext';
 import { ContextProvider } from '../../Context/MyContext';
 import { AddBoxBtn } from '../../components/AddBoxBtn';
 import { styles } from './Task_Partition.style';
+import { DismissKeyBord } from '../../components/DismissKeyboard';
 
 
 const windowWidth = Dimensions.get('window').width;
-
-const DismissKeyBord = ({ children }) => {
-    return <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        {children}
-    </TouchableWithoutFeedback>
-}
-
 
 
 export default function Task_divider({ navigation }) {

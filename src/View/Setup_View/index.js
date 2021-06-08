@@ -8,7 +8,6 @@ import {
 
 import Task from './Task'
 import Task_divider from './Task_Partition'
-import Task_Summary from './Task_Summary'
 import TimeScope from './TimeScope'
 import Work from '../Work_View'
 
@@ -20,10 +19,9 @@ export default function SetUpIntro({ navigation }) {
             headerMode="none"
             screenOptions={horizontalAnimation}
         >
-            <Stack.Screen component={Task} name="Task"/>
+            <Stack.Screen component={Task} name="Task" />
             <Stack.Screen component={Task_divider} name="Partition" />
             <Stack.Screen component={TimeScope} name="Time" />
-            <Stack.Screen component={Task_Summary} name="Summary" />
             <Stack.Screen component={Work} name="Work" />
         </Stack.Navigator>
     )

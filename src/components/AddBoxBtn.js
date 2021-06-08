@@ -1,22 +1,20 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
+import { themes } from '../Context/ThemeContext';
 
 
 export const AddBoxBtn = ({ onPress }) => {
-
-    
     return (
         <TouchableOpacity
             onPress={onPress}
             style={styles.button}
         // underlayColor={'green'}
         >
-            <AntDesign name="pluscircle" size={44} color="black" />
+            <AntDesign name="pluscircle" size={44} color={themes.light.lable}  />
         </TouchableOpacity>
     )
 }
-
 
 const styles = StyleSheet.create({
     button: {
@@ -24,11 +22,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 12,
         paddingHorizontal: 32,
-        // borderRadius: 4,
-        // elevation: 3,
-        // backgroundColor: 'black',
-        width: 150,
-        height: 80
+        // width: 150,
+        height: 80,
+        marginTop:10
     }
     
 });
