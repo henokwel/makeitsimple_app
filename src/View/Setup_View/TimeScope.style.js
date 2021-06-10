@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
     },
     lable_V: {
         flex: 1,
-
         // backgroundColor:"#FDF4D6",
         minHeight: 100
     },
@@ -42,7 +41,6 @@ export const styles = StyleSheet.create({
         // backgroundColor:"brown",
         minHeight: 100,
         color: themes.light.lable
-
     }
 
     // TextInput
@@ -57,21 +55,30 @@ export const styles = StyleSheet.create({
     Input_Text_Style: {
         fontSize: 25,
         fontWeight: "700",
-        paddingLeft:30
+        paddingLeft: 30
         // textAlign: "center"
     },
     Input_Title_V: {
-        // borderBottomWidth: 5,
         marginBottom: 35,
-        // backgroundColor:"red"
-
-
-
-
     },
-    Input_Desc_V: {
 
+    Input_Desc_V: {}
+    ,
+
+    // Working Pattern View
+
+    buttonPatter: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 22,
+        height: 50,
+        marginTop: 10,
+        
+        borderWidth:1,
+        width:"70%"
     }
+
 
     // Next btn 
     ,
@@ -82,6 +89,10 @@ export const styles = StyleSheet.create({
     },
 
 
+
+
+
+    // Modal Style
     modalView: {
         margin: 20,
         backgroundColor: themes.light.lable,
@@ -117,7 +128,4 @@ export const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center"
     }
-
-
-
 });

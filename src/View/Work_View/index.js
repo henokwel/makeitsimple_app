@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native'
 
 import { styles } from './work.style'
+import { ContextProvider } from '../../Context/MyContext'
 
 const viewWidth = Dimensions.get("screen").width
 
@@ -71,6 +72,8 @@ export default function Work({ navigation }) {
 
     const [index, setIndex] = useState(0)
 
+
+    const { setup } = useContext(ContextProvider)
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
@@ -169,7 +172,6 @@ export default function Work({ navigation }) {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                     paddingLeft: 10,
-
                                 }}
                             >
                                 <Text style={[styles.miniDesc, { fontSize: 21, alignSelf: "center" }]}>

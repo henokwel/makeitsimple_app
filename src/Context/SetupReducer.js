@@ -21,7 +21,10 @@ export const setupReducer = (state, action) => {
         case "time_scope": {
             return state = {
                 ...state,
-                time_scope: action.payload
+                time_scope: {
+                    time: action.payload.time,
+                    workingPattern: action.payload.work_pattern
+                }
             }
         }
 

@@ -5,7 +5,7 @@ import {
     SafeAreaView, Platform, StatusBar,
     Pressable, Alert, Modal, Dimensions,
     TouchableWithoutFeedback, Keyboard,
-    Switch, Button
+    Switch, Button, TouchableOpacity
 } from 'react-native'
 import { Button as ButtonNext } from '../../components/NextBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -21,7 +21,7 @@ const windowWidth = Dimensions.get('window').width;
 
 export default function TimeScope({ navigation }) {
     const [isEnabled, setIsEnabled] = useState(false);
-
+    const [defaultWorkingPatter, setdefaultWorkingPatter] = useState(true)
     const [time, onChangeTime] = useState("1");
 
     const [validateTime, setValiadateTime] = useState(true)
@@ -31,9 +31,18 @@ export default function TimeScope({ navigation }) {
     const [modalVisible_Time, setModalVisible_Time] = useState(false);
     const [modalVisible_Pattern, setModalVisible_Pattern] = useState(false);
 
-
     const { setupDispatch, setup } = useContext(ContextProvider)
 
+    const handleWorkingPattern = (type) => {
+
+        // if the default change, change State
+        // if state change again, reverse state
+        if (type === "default") {
+            setdefaultWorkingPatter(true)
+        } else {
+            setdefaultWorkingPatter(false)
+        }
+    }
 
     const handleNext = () => {
         // check if empty
@@ -48,7 +57,7 @@ export default function TimeScope({ navigation }) {
 
         // Check for number 
 
-        setupDispatch({ type: "time_scope", payload: time })
+        setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
         setValiadateTime(true)
         navigation.navigate('Work')
     }
@@ -56,8 +65,6 @@ export default function TimeScope({ navigation }) {
     return (
         <DismissKeyBord>
             <SafeAreaView style={styles.container}>
-
-
                 <View style={styles.lable_container}>
                     <View style={styles.lable_V}>
                         <Text style={styles.lable_Text}>How many hours do you estamate {setup.taskName} to complete</Text>
@@ -159,31 +166,79 @@ export default function TimeScope({ navigation }) {
                     <View
                         style={{
                             flex: 1,
-                            backgroundColor: "grey"
-                        }}
-                    >
-                        <Button
-                            title="30 min and 5 min "
-                            
-                        />
-                        <Button
-                            title="45 min and 10 min "
-                        />
+                            // backgroundColor: "#62A8A6"
+                        }}>
+
+                        {/* <TouchableOpacity
+                            style={styles.buttonPatter}
+                        // underlayColor={'green'}
+                        >
+                            <Text >30 min and 5 min</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.buttonPatter}
+                        // underlayColor={'green'}
+                        >
+                            <Text >30 min and 5 min</Text>
+                        </TouchableOpacity> */}
+
+
+                        {/* Stick Mode */}
+
+                        <View
+                            style={{
+                                // backgroundColor:"red",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginBottom: 15
+
+                            }}>
+
+                            <Switch
+                                thumbColor={defaultWorkingPatter ? themes.light.lable : "#4F4C4C"}
+                                trackColor={{ false: "#767577", true: "#84B7B6" }}
+                                ios_backgroundColor="#3e3e3e"
+                                value={defaultWorkingPatter}
+                                onValueChange={() => handleWorkingPattern("default")}
+                                style={{ height: 50, width: 50, marginLeft: 15 }}
+                            />
+                            <Text
+                                style={{
+                                    fontSize: 19, fontWeight: "bold", color: "black",
+                                    paddingLeft: 10
+                                }}>
+                                30 min and 5 min
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                // backgroundColor:"red",
+                                flexDirection: "row",
+                                alignItems: "center",
+
+                            }}>
+
+                            <Switch
+                                thumbColor={!defaultWorkingPatter ? themes.light.lable : "#4F4C4C"}
+                                trackColor={{ false: "#767577", true: "#84B7B6" }}
+                                ios_backgroundColor="#3e3e3e"
+                                value={!defaultWorkingPatter}
+                                onValueChange={() => handleWorkingPattern("notDefault")}
+                                style={{ height: 50, width: 50, marginLeft: 15 }}
+                            />
+                            <Text
+                                style={{
+                                    fontSize: 19, fontWeight: "bold", color: "black",
+                                    paddingLeft: 10
+
+                                }} >
+                                45 min and 10 min</Text>
+                        </View>
+
 
                     </View>
 
-                    {/* 
-                    
-                    Stick Mode
-                
-                    <Switch
-                        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                        trackColor={{ false: "#767577", true: "#81b0ff" }}
-                        ios_backgroundColor="#3e3e3e"
-                        value={isEnabled}
-                        onValueChange={() => setIsEnabled(!isEnabled)}
-                    />
-                     */}
 
                 </View>
                 <View style={styles.Next_btn_container}>
