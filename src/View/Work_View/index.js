@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Animated, Pressable } from 'react-native'
 
 import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
 
 const viewWidth = Dimensions.get("screen").width
 
-const ProgressUI = ({ step, steps, height }) => {
+const ProgressUI = ({ step, steps, height, state, pause }) => {
     const [width, setWidth] = useState(0)
     const animatedValue = useRef(new Animated.Value(-1000)).current
     const reactive = useRef(new Animated.Value(-1000)).current
@@ -15,25 +15,22 @@ const ProgressUI = ({ step, steps, height }) => {
 
 
     useEffect(() => {
-        Animated.timing(animatedValue, {
+        const animatedTiming = Animated.timing(animatedValue, {
             toValue: reactive,
             duration: 300,
             useNativeDriver: true
-        }).start()
-
+        })
+        state ? animatedTiming.start() : animatedTiming.stop()
     }, [])
-
 
     useEffect(() => {
         reactive.setValue(-width + (width * step) / steps)
     }, [step, width])
 
     return <View
-
         onLayout={e => {
             const newWidth = e.nativeEvent.layout.width
             setWidth(newWidth)
-
         }}
         style={{
             height,
@@ -51,9 +48,8 @@ const ProgressUI = ({ step, steps, height }) => {
                 height,
                 width: "100%",
                 // borderRadius: height,
-                backgroundColor: "#84B7B6",
+                backgroundColor: !pause ? "#84B7B6" : "#824e5e",
                 position: "absolute",
-
                 top: 0,
                 left: 0,
                 transform: [
@@ -69,16 +65,38 @@ const ProgressUI = ({ step, steps, height }) => {
 export default function Work({ navigation }) {
     const [feedback, setFeedBack] = useState(false)
     const [workBreak, setWorkBreak] = useState(false)
-
+    const [pause, setPause] = useState(false)
     const [index, setIndex] = useState(0)
 
-
     const { setup } = useContext(ContextProvider)
+
+    useEffect(() => {
+        // Paus
+        //  => check current Index, 
+        // SetIndex to current Index
+        // ? I think when I start again it will conintune from the previous index
+        if (pause) {
+            setIndex(index)
+        } else {
+
+            // Timmer Interval
+
+
+            // Get Minutes and turn into seconds
+
+            const interval = setInterval(() => {
+                setIndex((index + 1) % (60 + 1))
+                console.log("Inside", index);
+            }, 980)
+            return () => {
+                clearInterval(interval)
+            }
+        }
+    }, [index, pause])
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
     //         setIndex((index + 1) % (50 + 1))
-
     //     }, 1000)
     //     return () => {
     //         clearInterval(interval)
@@ -86,9 +104,7 @@ export default function Work({ navigation }) {
     // }, [index])
 
     return (
-
         workBreak ?
-
             //  Break View --------------------------------------
             <View
                 style={{
@@ -104,9 +120,9 @@ export default function Work({ navigation }) {
 
             //  Break View  END --------------------------------------
 
-
             :
             //  Work View --------------------------------------
+
             <View style={styles.container}>
                 <StatusBar />
                 <View
@@ -159,9 +175,16 @@ export default function Work({ navigation }) {
                                     justifyContent: "center",
                                 }}
                             >
-                                {/* <Text style={styles.text}>Progress bar</Text> */}
-                                <ProgressUI step={index} steps={50} height={75}
-                                />
+
+                                <Pressable
+                                    onPress={() => setPause(!pause)}
+                                >
+                                    {/* <Text style={styles.text}>Progress bar</Text> */}
+                                    <ProgressUI
+                                        step={index} steps={60} height={75}
+                                        state={true} pause={pause}
+                                    />
+                                </Pressable>
                             </View>
 
                             <View
@@ -187,13 +210,6 @@ export default function Work({ navigation }) {
                         </>
                     //  Work  View END --------------------------------------
                 }
-
-
             </View>
-
-
-
-
-
     )
 }
