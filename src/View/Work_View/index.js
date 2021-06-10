@@ -85,6 +85,8 @@ export default function Work({ navigation }) {
     return (
 
         workBreak ?
+
+            //  Break View --------------------------------------
             <View
                 style={{
                     flex: 1,
@@ -96,7 +98,12 @@ export default function Work({ navigation }) {
             >
                 <Text>Hello world</Text>
             </View>
+
+            //  Break View  END --------------------------------------
+
+
             :
+            //  Work View --------------------------------------
             <View style={styles.container}>
                 <StatusBar />
                 <View
@@ -117,7 +124,10 @@ export default function Work({ navigation }) {
                     </Text>
                 </View>
                 {
+                    //  Work View  END --------------------------------------
+
                     feedback === true ?
+                        //  FeedBack  View --------------------------------------
                         <View
                             style={{
                                 flex: 1,
@@ -132,7 +142,10 @@ export default function Work({ navigation }) {
                         >
                             <Text>Feedback</Text>
                         </View>
+
+                        //  FeedBack  View  END--------------------------------------
                         :
+                        //  Work  View --------------------------------------
                         <>
                             <View
                                 style={{
@@ -165,9 +178,12 @@ export default function Work({ navigation }) {
                                     <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text>
 
                                 </Text>
-                                <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}> - Unamed</Text>
+                                <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
+                                    - Unamed
+                                </Text>
                             </View>
                         </>
+                    //  Work  View END --------------------------------------
                 }
 
 

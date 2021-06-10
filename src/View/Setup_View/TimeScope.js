@@ -5,9 +5,9 @@ import {
     SafeAreaView, Platform, StatusBar,
     Pressable, Alert, Modal, Dimensions,
     TouchableWithoutFeedback, Keyboard,
-    Switch
+    Switch, Button
 } from 'react-native'
-import { Button } from '../../components/NextBtn';
+import { Button as ButtonNext } from '../../components/NextBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { themes } from '../../Context/ThemeContext';
 import { ContextProvider } from '../../Context/MyContext';
@@ -27,7 +27,10 @@ export default function TimeScope({ navigation }) {
     const [validateTime, setValiadateTime] = useState(true)
 
 
-    const [modalVisible, setModalVisible] = useState(false);
+
+    const [modalVisible_Time, setModalVisible_Time] = useState(false);
+    const [modalVisible_Pattern, setModalVisible_Pattern] = useState(false);
+
 
     const { setupDispatch, setup } = useContext(ContextProvider)
 
@@ -54,6 +57,7 @@ export default function TimeScope({ navigation }) {
         <DismissKeyBord>
             <SafeAreaView style={styles.container}>
 
+
                 <View style={styles.lable_container}>
                     <View style={styles.lable_V}>
                         <Text style={styles.lable_Text}>How many hours do you estamate {setup.taskName} to complete</Text>
@@ -61,42 +65,60 @@ export default function TimeScope({ navigation }) {
                     <View style={styles.label_info}>
                         <Pressable
                             // style={[styles.button, styles.buttonOpen]}
-                            onPress={() => setModalVisible(true)}
+                            onPress={() => setModalVisible_Time(true)}
                         >
                             <FontAwesome5 name="info-circle" size={24} color={themes.light.lable} />
                         </Pressable>
                     </View>
                 </View>
 
+                {/* Modal View Time */}
                 <Modal
                     animationType="fade"
                     transparent={true}
-                    visible={modalVisible}
+                    visible={modalVisible_Time}
                     onRequestClose={() => {
                         // Alert.alert("Modal has been closed.");
-                        setModalVisible(!modalVisible);
+                        setModalVisible_Time(!modalVisible_Time);
                     }}
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={styles.modalText}>Guide of section !</Text>
+                            <Text style={styles.modalText}>Time estamate !</Text>
                             <Pressable
                                 style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}
+                                onPress={() => setModalVisible_Time(!modalVisible_Time)}
                             >
                                 <Text style={styles.textStyle}>Hide Btn</Text>
                             </Pressable>
                         </View>
                     </View>
                 </Modal>
+                {/* Modal View Time*/}
 
-                {/* <Pressable
-                style={[styles.button, styles.buttonOpen]}
-                onPress={() => setModalVisible(true)}
-            >
-                <Text style={styles.textStyle}>Show Modal</Text>
-            </Pressable> */}
-
+                {/* Modal View Pattern */}
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible_Pattern}
+                    onRequestClose={() => {
+                        // Alert.alert("Modal has been closed.");
+                        setModalVisible_Pattern(!modalVisible_Pattern);
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Pattern !</Text>
+                            <Pressable
+                                style={[styles.button, styles.buttonClose]}
+                                onPress={() => setModalVisible_Pattern(!modalVisible_Pattern)}
+                            >
+                                <Text style={styles.textStyle}>Hide Pattern Btn</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+                {/* Modal View Pattern*/}
                 <View style={styles.Input_container}>
                     <View style={[styles.Input_Title_V, { borderLeftWidth: validateTime ? 0 : 15, borderColor: "red" }]}>
                         <TextInput
@@ -107,9 +129,7 @@ export default function TimeScope({ navigation }) {
                             placeholderTextColor={themes.light.placeHolderText}
                             multiline={true}
                             keyboardType="numeric"
-
                         />
-
                         <View
                             style={{
                                 borderBottomColor: themes.light.underLineColor,
@@ -120,7 +140,40 @@ export default function TimeScope({ navigation }) {
                         />
                     </View>
 
+
+
+                    <View style={styles.lable_container}>
+                        <View style={[styles.lable_V, { minHeight: 40 }]}>
+                            <Text style={styles.lable_Text}>Choose working pattern</Text>
+                        </View>
+                        <View style={[styles.label_info, { minHeight: 40 }]}>
+                            <Pressable
+                                // style={[styles.button, styles.buttonOpen]}
+                                onPress={() => setModalVisible_Time(true)}
+                            >
+                                <FontAwesome5 name="info-circle" size={24} color={themes.light.lable} />
+                            </Pressable>
+                        </View>
+                    </View>
+
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "grey"
+                        }}
+                    >
+                        <Button
+                            title="30 min and 5 min "
+                            
+                        />
+                        <Button
+                            title="45 min and 10 min "
+                        />
+
+                    </View>
+
                     {/* 
+                    
                     Stick Mode
                 
                     <Switch
@@ -134,7 +187,7 @@ export default function TimeScope({ navigation }) {
 
                 </View>
                 <View style={styles.Next_btn_container}>
-                    <Button
+                    <ButtonNext
                         title="Next"
                         onPress={handleNext}
                     />
