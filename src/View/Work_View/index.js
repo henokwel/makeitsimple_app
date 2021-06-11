@@ -1,66 +1,15 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { View, Text, StyleSheet, Dimensions, Animated, Pressable } from 'react-native'
-
+import {
+    View, Text, Dimensions,
+    Animated, Pressable, Vibration,
+} from 'react-native'
+import { CommonActions } from '@react-navigation/native'
 import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
+import { ProgressUI } from '../../components/ProgressUI'
 
 const viewWidth = Dimensions.get("screen").width
-
-const ProgressUI = ({ step, steps, height, state, pause }) => {
-    const [width, setWidth] = useState(0)
-    const animatedValue = useRef(new Animated.Value(-1000)).current
-    const reactive = useRef(new Animated.Value(-1000)).current
-
-
-
-    useEffect(() => {
-        const animatedTiming = Animated.timing(animatedValue, {
-            toValue: reactive,
-            duration: 300,
-            useNativeDriver: true
-        })
-        state ? animatedTiming.start() : animatedTiming.stop()
-    }, [])
-
-    useEffect(() => {
-        reactive.setValue(-width + (width * step) / steps)
-    }, [step, width])
-
-    return <View
-        onLayout={e => {
-            const newWidth = e.nativeEvent.layout.width
-            setWidth(newWidth)
-        }}
-        style={{
-            height,
-            // backgroundColor: "brown",
-            // borderRadius: height,
-            overflow: "hidden",
-            borderTopWidth: 3,
-            borderBottomWidth: 3,
-            borderColor: "#84B7B6"
-            // width:viewWidth
-        }}
-    >
-        <Animated.View
-            style={{
-                height,
-                width: "100%",
-                // borderRadius: height,
-                backgroundColor: !pause ? "#84B7B6" : "#824e5e",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                transform: [
-                    {
-                        translateX: animatedValue
-                    }
-                ]
-            }}
-        />
-    </View>
-}
 
 export default function Work({ navigation }) {
     const [feedback, setFeedBack] = useState(false)
@@ -70,6 +19,8 @@ export default function Work({ navigation }) {
 
     const { setup } = useContext(ContextProvider)
 
+    console.log(setup);
+
     useEffect(() => {
         // Paus
         //  => check current Index, 
@@ -78,15 +29,10 @@ export default function Work({ navigation }) {
         if (pause) {
             setIndex(index)
         } else {
-
             // Timmer Interval
-
-
             // Get Minutes and turn into seconds
-
             const interval = setInterval(() => {
                 setIndex((index + 1) % (60 + 1))
-                console.log("Inside", index);
             }, 980)
             return () => {
                 clearInterval(interval)
@@ -103,6 +49,14 @@ export default function Work({ navigation }) {
     //     }
     // }, [index])
 
+    useEffect(() => {
+        const nav = navigation.addListener('gestureStart', (e) => {
+            // Do something
+            return console.log(e);
+        });
+        console.log(nav);
+    }, [navigation])
+
     return (
         workBreak ?
             //  Break View --------------------------------------
@@ -117,9 +71,7 @@ export default function Work({ navigation }) {
             >
                 <Text>Hello world</Text>
             </View>
-
             //  Break View  END --------------------------------------
-
             :
             //  Work View --------------------------------------
 
@@ -177,8 +129,11 @@ export default function Work({ navigation }) {
                             >
 
                                 <Pressable
-                                    onPress={() => setPause(!pause)}
-                                >
+                                    onPress={() => {
+                                        // Vibration.vibrate()
+                                        setPause(!pause)
+                                    }
+                                    }>
                                     {/* <Text style={styles.text}>Progress bar</Text> */}
                                     <ProgressUI
                                         step={index} steps={60} height={75}

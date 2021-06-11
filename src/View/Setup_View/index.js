@@ -22,7 +22,9 @@ export default function SetUpIntro({ navigation }) {
             <Stack.Screen component={Task} name="Task" />
             <Stack.Screen component={Task_divider} name="Partition" />
             <Stack.Screen component={TimeScope} name="Time" />
-            <Stack.Screen component={Work} name="Work" />
+            <Stack.Screen
+                options={{ gestureEnabled: false }}
+                component={Work} name="Work" />
         </Stack.Navigator>
     )
 }

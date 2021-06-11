@@ -7,6 +7,7 @@ import {
     TouchableWithoutFeedback, Keyboard,
     Switch, Button, TouchableOpacity
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button as ButtonNext } from '../../components/NextBtn';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { themes } from '../../Context/ThemeContext';
@@ -44,22 +45,31 @@ export default function TimeScope({ navigation }) {
         }
     }
 
-    const handleNext = () => {
+    const handleNext = async () => {
+        try {
+
+            if (!time.trim()) {
+                setValiadateTime(false)
+                return;
+            }
+            if (isNaN(time)) {
+                setValiadateTime(false)
+                return;
+            }
+
+            // Check for number 
+
+            setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
+            const jsonValue = JSON.stringify(setup)
+            await AsyncStorage.setItem('@storage_Key', jsonValue)
+
+
+            setValiadateTime(true)
+            navigation.navigate('Work')
+        } catch (error) {
+            console.log("error", error);
+        }
         // check if empty
-        if (!time.trim()) {
-            setValiadateTime(false)
-            return;
-        }
-        if (isNaN(time)) {
-            setValiadateTime(false)
-            return;
-        }
-
-        // Check for number 
-
-        setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
-        setValiadateTime(true)
-        navigation.navigate('Work')
     }
 
     return (
@@ -198,10 +208,10 @@ export default function TimeScope({ navigation }) {
                             <Switch
                                 thumbColor={defaultWorkingPatter ? themes.light.lable : "#4F4C4C"}
                                 trackColor={{ false: "#767577", true: "#84B7B6" }}
-                                ios_backgroundColor="#3e3e3e"
+                                ios_backgroundColor="#FFFAF2"
                                 value={defaultWorkingPatter}
                                 onValueChange={() => handleWorkingPattern("default")}
-                                style={{ height: 50, width: 50, marginLeft: 15 }}
+                                style={{ marginLeft: 15 }}
                             />
                             <Text
                                 style={{
@@ -222,10 +232,10 @@ export default function TimeScope({ navigation }) {
                             <Switch
                                 thumbColor={!defaultWorkingPatter ? themes.light.lable : "#4F4C4C"}
                                 trackColor={{ false: "#767577", true: "#84B7B6" }}
-                                ios_backgroundColor="#3e3e3e"
+                                ios_backgroundColor="#FFFAF2"
                                 value={!defaultWorkingPatter}
                                 onValueChange={() => handleWorkingPattern("notDefault")}
-                                style={{ height: 50, width: 50, marginLeft: 15 }}
+                                style={{ marginLeft: 15 }}
                             />
                             <Text
                                 style={{
