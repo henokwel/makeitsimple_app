@@ -12,7 +12,7 @@ import { ContextEditer } from '../Context/MyContext'
 
 const viewWidth = Dimensions.get("screen").width
 
-export const ProgressUI = ({ step, steps, height, state, pause }) => {
+export const ProgressUI = ({ step, steps, height, state, pause, type }) => {
     const [width, setWidth] = useState(0)
     const animatedValue = useRef(new Animated.Value(-1000)).current
     const reactive = useRef(new Animated.Value(-1000)).current
@@ -42,7 +42,7 @@ export const ProgressUI = ({ step, steps, height, state, pause }) => {
             overflow: "hidden",
             borderTopWidth: 3,
             // borderBottomWidth: 3,
-            borderColor: !pause ? "#84B7B6" : "#DBD5A5"
+            borderColor: type !== "work" ? !pause ? "#84B7B6" : "#DBD5A5" : "black"
             // width:viewWidth
         }}
     >
@@ -51,7 +51,7 @@ export const ProgressUI = ({ step, steps, height, state, pause }) => {
                 height,
                 width: "100%",
                 // borderRadius: height,
-                backgroundColor: !pause ? "#84B7B6" : "#DBD5A5",
+                backgroundColor: type !== "work" ? !pause ? "#84B7B6" : "#DBD5A5" : "black",
                 position: "absolute",
                 top: 0,
                 left: 0,
@@ -62,6 +62,6 @@ export const ProgressUI = ({ step, steps, height, state, pause }) => {
                 ]
             }}
         />
-            <Text style={{ color: "white" }}>{step} / {steps}</Text>
+        <Text style={{ color: "white" }}>{step} / {steps}</Text>
     </View>
 }

@@ -6,20 +6,13 @@ import { workReducer } from '../Context/WorkReducer';
 import { ContextProvider } from '../Context/MyContext';
 
 export default function Home({ navigation }) {
-    const [backlog, setBacklog] = useState(null)
-    // const [work, setWork] = useReducer(workReducer, null)
 
     const { work } = useContext(ContextProvider)
-    useEffect(() => {
-        // Get work from Context 
-        setBacklog(work)
-    }, [])
-
 
     return (
         <View style={styles.container}>
             {
-                backlog === null ?
+                work === null ?
                     <>
                         <Text>MakeItSimple</Text>
                         <Text>Home</Text>
@@ -33,7 +26,7 @@ export default function Home({ navigation }) {
                     :
                     <>
                         <Text>Welcome back</Text>
-                        <Text> {backlog !== null ? backlog.taskName : "Loading"}</Text>
+                        <Text> {work !== null ? work.taskName : "Loading"}</Text>
                         <Button
                             title="Continue"
                             onPress={() => {
@@ -42,7 +35,6 @@ export default function Home({ navigation }) {
                         />
                     </>
             }
-
         </View>
     )
 }

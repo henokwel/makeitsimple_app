@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
-export const Button = ({ onPress, title }) => {
+export const Button = ({ onPress, title, size }) => {
 
     var touchProps = {
         activeOpacity: 1,
@@ -10,8 +10,8 @@ export const Button = ({ onPress, title }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
-            style={styles.button}
-         // underlayColor={'green'}
+            style={[styles.button, { width: size === "lg" ? 300 : 200 }]}
+        // underlayColor={'green'}
         >
             <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>

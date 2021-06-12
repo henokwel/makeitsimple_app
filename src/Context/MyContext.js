@@ -11,23 +11,23 @@ export const ContextProvider = createContext()
 // export const useMyContext = useContext(ContextProvider)
 
 export default function MyContext({ children }) {
-    const [work, workDispatch] = useReducer(workReducer, "")
+    const [work, workDispatch] = useReducer(workReducer, null)
     const [setup, setupDispatch] = useReducer(setupReducer, "")
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getData() {
             try {
                 const jsonValue = await AsyncStorage.getItem('@storage_Key')
                 const res = jsonValue != null ? JSON.parse(jsonValue) : null;
-                 workDispatch({ type: "userData", payload: res })
+                workDispatch({ type: "userData", payload: res })
                 // console.log("res", res);
             } catch (e) {
                 // error reading value
                 console.log("Error Home", e);
             }
         }
-        getData()        
-    },[])
+        getData()
+    }, [])
 
 
     return (
