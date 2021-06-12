@@ -1,35 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from '../components/NextBtn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import { workReducer } from '../Context/WorkReducer';
+import { ContextProvider } from '../Context/MyContext';
 
 export default function Home({ navigation }) {
     const [backlog, setBacklog] = useState(null)
+    // const [work, setWork] = useReducer(workReducer, null)
 
+    const { work } = useContext(ContextProvider)
     useEffect(() => {
-        async function getData() {
-            try {
-                const jsonValue = await AsyncStorage.getItem('@storage_Key')
-                const res = jsonValue != null ? JSON.parse(jsonValue) : null;
-                setBacklog(res)
-                console.log("res",res);
-            } catch (e) {
-                // error reading value
-                console.log("Error Home", e);
-            }
-        }
-        getData()
+        // Get work from Context 
+        setBacklog(work)
     }, [])
-
-
 
 
     return (
         <View style={styles.container}>
-
-
             {
                 backlog === null ?
                     <>
@@ -53,9 +41,7 @@ export default function Home({ navigation }) {
                             }}
                         />
                     </>
-
             }
-
 
         </View>
     )

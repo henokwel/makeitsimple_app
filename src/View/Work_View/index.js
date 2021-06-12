@@ -17,16 +17,17 @@ export default function Work({ navigation }) {
     const [pause, setPause] = useState(false)
     const [index, setIndex] = useState(0)
 
-    const { setup } = useContext(ContextProvider)
+    const { setup, work } = useContext(ContextProvider)
+    // console.log("work", work);
 
-    console.log("setup", setup);
+
 
 
 
 
 
     useEffect(() => {
-
+        // console.log(setup);
 
         //ReDo this whole fn .
 
@@ -35,6 +36,24 @@ export default function Work({ navigation }) {
         // of If()s
 
 
+        {/*
+            FeedBack  
+                If index is -7min before ending, Get feedback
+                    A) Add 15 more minutes 
+                    B) Continue timmer
+                
+            Break 
+               If index is  0min left, Start Break
+               Break Timer start
+               Break should run in the background as many user will likey go to other apps.
+               Enable Notification so the user can get reminder or sound singla when break is over
+
+               If index of break is less than 0.5min, ask is user want to continue to next min-task
+                   Yes ) Conntinue to new task
+                   No) ReSet timmer and conitune with previous task
+                   
+    */}
+
         //_________________________
 
 
@@ -42,18 +61,35 @@ export default function Work({ navigation }) {
         //  => check current Index, 
         // SetIndex to current Index
         // ? I think when I start again it will conintune from the previous index
+
+        const feedback_index = 0
+        const break_index = 3
+        console.log(index);
         if (pause) {
             setIndex(index)
         } else {
+
+            // Get User Feedback
+            // A Or B 
+            // Return
+
             // Timmer Interval
             // Get Minutes and turn into seconds
-            // const interval = setInterval(() => {
-            //     setIndex((index + 1) % (60 + 1))
-            // }, 980)
-            // return () => {
-            //     clearInterval(interval)
-            // }
+            const interval = setInterval(() => {
+                setIndex((index + 1) % (60 + 1))
+            }, 980)
+            return () => {
+                clearInterval(interval)
+            }
         }
+        // else if(break_index === index){
+
+        //     // Start break 
+        //     // Before break end, ask user foor feedback
+        //     // Yes Or No 
+        //     // Return 
+
+        // }
 
     }, [index, pause])
 
@@ -91,6 +127,7 @@ export default function Work({ navigation }) {
             >
                 <Text>Hello world</Text>
             </View>
+
             //  Break View  END --------------------------------------
             :
             //  Work View --------------------------------------
@@ -129,8 +166,7 @@ export default function Work({ navigation }) {
                                 alignItems: "center",
                                 borderTopEndRadius: 20,
                                 borderTopLeftRadius: 10
-                            }}
-                        >
+                            }}>
                             <Text>Feedback</Text>
                         </View>
 
