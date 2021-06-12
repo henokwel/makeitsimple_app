@@ -102,10 +102,8 @@ export default function Work({ navigation }) {
             setIndex(0)
 
             // if (index === 4) {
-
             //     return
             // }
-
 
         } else if ((workBreak ? index : - 10) === 3) {
             setIndex(index + 1)
@@ -124,7 +122,6 @@ export default function Work({ navigation }) {
                 clearInterval(interval)
             }
         }
-
 
         // else if(index ===  index - 420 ){
         // Feedback
@@ -181,7 +178,6 @@ export default function Work({ navigation }) {
                         style={{
                             fontSize: 34,
                             fontWeight: "bold"
-
                         }}>
                         Good job !
                     </Text>
@@ -190,8 +186,7 @@ export default function Work({ navigation }) {
                         style={{
                             fontSize: 23,
                             width: "50%"
-                        }}
-                    >
+                        }}>
                         Take a 5 min
                         break and move around
                     </Text>
@@ -205,8 +200,7 @@ export default function Work({ navigation }) {
                         justifyContent: "center",
                         backgroundColor: "blue",
                         // height:500
-                    }}
-                >
+                    }}>
 
                     <ProgressUI
                         step={index} steps={7} height={75}
@@ -336,35 +330,6 @@ export default function Work({ navigation }) {
                                     setWPT(workPatternTest + 5)
                                 }}
                             />
-                            {/* <Pressable
-                            >
-                                <View
-                                    style={{
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "red",
-                                        height: 50,
-                                        width: 200
-                                    }}
-                                >
-                                    <Text>It's good</Text>
-                                </View>
-                            </Pressable>
-                            <Pressable
-                            >
-                                <View
-                                    style={{
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "grey",
-                                        height: 50,
-                                        width: 200
-                                    }}
-                                >
-
-                                    <Text>I'm almost done, I need 15 min more</Text>
-                                </View>
-                            </Pressable> */}
                         </View>
 
                         //  FeedBack  View  END--------------------------------------
@@ -380,7 +345,6 @@ export default function Work({ navigation }) {
                                     justifyContent: "center",
                                 }}
                             >
-
 
                                 <Pressable
                                     onPress={() => {
