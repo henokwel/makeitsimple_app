@@ -14,15 +14,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator()
 
 export default function App() {
-  useEffect(() => {
-    try {
-      AsyncStorage.clear()
-      console.log("clear");
-    } catch (e) {
-      // clear error
-      console.log("e", e);
-    }
-  })
+  // useEffect(() => {
+  //   try {
+  //     AsyncStorage.clear()
+  //     console.log("clear");
+  //   } catch (e) {
+  //     // clear error
+  //     console.log("e", e);
+  //   }
+  // })
 
   return (
     <MyContext>

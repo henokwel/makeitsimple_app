@@ -62,5 +62,6 @@ export const ProgressUI = ({ step, steps, height, state, pause }) => {
                 ]
             }}
         />
+            <Text style={{ color: "white" }}>{step} / {steps}</Text>
     </View>
 }

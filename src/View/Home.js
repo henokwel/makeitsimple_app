@@ -14,7 +14,7 @@ export default function Home({ navigation }) {
                 const jsonValue = await AsyncStorage.getItem('@storage_Key')
                 const res = jsonValue != null ? JSON.parse(jsonValue) : null;
                 setBacklog(res)
-                console.log(res);
+                console.log("res",res);
             } catch (e) {
                 // error reading value
                 console.log("Error Home", e);

@@ -19,9 +19,25 @@ export default function Work({ navigation }) {
 
     const { setup } = useContext(ContextProvider)
 
-    console.log(setup);
+    console.log("setup", setup);
+
+
+
+
 
     useEffect(() => {
+
+
+        //ReDo this whole fn .
+
+        // FeedBack, Break &  Puse will be done here. 
+        // I can use Switch type to detect what kind of action s needed
+        // of If()s
+
+
+        //_________________________
+
+
         // Paus
         //  => check current Index, 
         // SetIndex to current Index
@@ -31,23 +47,27 @@ export default function Work({ navigation }) {
         } else {
             // Timmer Interval
             // Get Minutes and turn into seconds
-            const interval = setInterval(() => {
-                setIndex((index + 1) % (60 + 1))
-            }, 980)
-            return () => {
-                clearInterval(interval)
-            }
+            // const interval = setInterval(() => {
+            //     setIndex((index + 1) % (60 + 1))
+            // }, 980)
+            // return () => {
+            //     clearInterval(interval)
+            // }
         }
+
     }, [index, pause])
 
+
+    // Feedback
     // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setIndex((index + 1) % (50 + 1))
-    //     }, 1000)
-    //     return () => {
-    //         clearInterval(interval)
-    //     }
+    // const interval = setInterval(() => {
+    //     setIndex((index + 1) % (50 + 1))
+    // }, 1000)
+    // return () => {
+    //     clearInterval(interval)
+    // }
     // }, [index])
+
 
     useEffect(() => {
         const nav = navigation.addListener('gestureStart', (e) => {
