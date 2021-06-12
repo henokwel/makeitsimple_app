@@ -150,6 +150,8 @@ export default function Work({ navigation }) {
     //     // console.log(nav);
     // }, [navigation])
 
+
+
     return (
         workBreak ?
             //  Break View --------------------------------------
@@ -168,7 +170,7 @@ export default function Work({ navigation }) {
                         // flex: 1,
                         alignItems: "center",
                         justifyContent: "flex-start",
-                        backgroundColor: "green",
+                        // backgroundColor: "green",
                         height: 330,
                         padding: 10,
                         width: "100%",
@@ -198,7 +200,7 @@ export default function Work({ navigation }) {
                         width: viewWidth,
                         // height: 200,
                         justifyContent: "center",
-                        backgroundColor: "blue",
+                        // backgroundColor: "blue",
                         // height:500
                     }}>
 
