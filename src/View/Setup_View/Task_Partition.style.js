@@ -67,6 +67,9 @@ export const styles = StyleSheet.create({
         color: themes.light.primaryText
     },
     Input_Title_V: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
         // borderBottomWidth: 5,
         marginBottom: 15,
         // backgroundColor: "red",
@@ -85,7 +88,10 @@ export const styles = StyleSheet.create({
 
     },
     TextInput_RemoveBtn_continaer: {
+        width: 30,
         alignItems: "flex-end",
+
+
     },
 
     // Next btn 

@@ -25,8 +25,8 @@ export default function Work({ navigation }) {
 
     const { setup, work } = useContext(ContextProvider)
 
-    const { time_scope } = work
-    const workPattern = time_scope.workingPattern === "305" ? 1800 : 2700
+    // const { time_scope } = work
+    // const workPattern = time_scope.workingPattern === "305" ? 1800 : 2700
     // const workPatternTest = 10
 
     useEffect(() => {

@@ -143,18 +143,7 @@ export default function Task_divider({ navigation }) {
                                     return <View
                                         key={box.id}
                                         style={styles.Input_Wrapper}>
-                                        <View style={styles.TextInput_RemoveBtn_continaer}>
-                                            {
-                                                partitionsBox.length === 1 ?
-                                                    <View></View>
-                                                    :
-                                                    <TouchableOpacity
-                                                        onPress={() => handleRemoveBox(box.id)}
-                                                    >
-                                                        <AntDesign name="closecircleo" size={30} color={themes.light.lable} />
-                                                    </TouchableOpacity>
-                                            }
-                                        </View>
+
 
 
                                         <View style={styles.Input_Title_V}>
@@ -166,6 +155,18 @@ export default function Task_divider({ navigation }) {
                                                 placeholderTextColor={themes.light.placeHolderText}
                                             // multiline={true}
                                             />
+                                            <View style={styles.TextInput_RemoveBtn_continaer}>
+                                                {
+                                                    partitionsBox.length === 1 ?
+                                                        <View></View>
+                                                        :
+                                                        <TouchableOpacity
+                                                            onPress={() => handleRemoveBox(box.id)}
+                                                        >
+                                                            <AntDesign name="closecircleo" size={30} color={themes.light.lable} />
+                                                        </TouchableOpacity>
+                                                }
+                                            </View>
                                             {/* <View
                                                 style={{
                                                     borderBottomColor: themes.light.underLineColor,
