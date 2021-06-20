@@ -22,7 +22,7 @@ export default function Work({ navigation }) {
     const [workPatternTest, setWPT] = useState(10)
     const { setup, work } = useContext(ContextProvider)
     const { task_paritions, taskName, taskGoal } = work
-    const [minTask, setNextMiniTask] = useState({ current: 0, length: task_paritions.length })
+    const [minTask, setNextMiniTask] = useState({ current: 0, size: task_paritions.length })
     // console.log(task_paritions[minTask.current]);
     // console.log(minTask);
 
@@ -30,15 +30,18 @@ export default function Work({ navigation }) {
 
     /// handle Break btn 
     const handleBreakFeedback = ({ type, index }) => {
-        if (type === "next") {
-            
-        }
+
         switch (type) {
             case "next": {
                 console.log("Next", index);
-
+                setBreakFeedback(false)
+                setPause(false)
+                setIndex(index + 1)
+                /// Disptach Current task as finished and prepare next task
+                setNextMiniTask({ current: minTask.current + 1, size: task_paritions.length  })
+                setWorkBreak(false)
             }
-            break;
+                break;
 
             case "continue": {
                 console.log("continue", index);
@@ -48,6 +51,14 @@ export default function Work({ navigation }) {
             default:
                 break;
         }
+    }
+
+    const handleOnFinish = () =>{
+
+        // Clean AsyncStorage 
+        // Naviagte to Home, ready for next Setup
+        // Reset all State
+
     }
 
 
@@ -76,28 +87,31 @@ export default function Work({ navigation }) {
 
         //_________________________
 
-
-        // Paus
+        {/*
+            
+            // Paus
         //  => check current Index, 
         // SetIndex to current Index
         // ? I think when I start again it will conintune from the previous index
-
-
+        
+        
         // Timmer Interval
         // Get Minutes and turn into seconds
-
+        
         // 1 min => 60s
         // 5 min =>  300s
         // 7 min =>  420s
         // 10 min =>  600s
         // 30 min => 1800s
         // 45 min => 2700s 
+    */}
 
         if (pause) {
             setIndex(index)
 
             ///  Feedback Should only run ONCE!!
         } else if ((workPatternTest === 10 ? index : 0) === workPatternTest - 2) {
+            console.log("Work Feedback Only Once---- Runing");
 
             // Get User Feedback
             // A Or B 
@@ -110,7 +124,7 @@ export default function Work({ navigation }) {
             return
 
         } else if (index === workPatternTest) {
-            // Start break 
+            {/*           // Start break 
             // Before break end, ask user for feedback
             // Yes Or No 
             // Return 
@@ -121,17 +135,22 @@ export default function Work({ navigation }) {
             // SetBreak ture
 
             // if 1 min left to break, 
-            // ask if user has finish task or want to continue
+            // ask if user has finish task or want to continue*/}
 
             setWorkBreak(true)
             setIndex(0)
 
         } else if ((workBreak ? index : - 10) === 3) {
-            setIndex(index + 1)
-            setPause(true)
+            // Start Breaks Feedback 
+
+            // console.log("Runnning...........");
+            // setIndex(index + 1)
+            // setPause(true)
             setBreakFeedback(true)
 
         }
+
+        // Turn on Work 
         else {
             const interval = setInterval(() => {
                 workBreak ?
@@ -144,12 +163,16 @@ export default function Work({ navigation }) {
             }
         }
 
+
         // else if(index ===  index - 420 ){
         // Feedback
 
         //}
 
     }, [index, pause])
+
+    console.log("minTask Current", minTask.current);
+    console.log("minTask Length", minTask.size);
 
     return (
         workBreak ?
@@ -236,35 +259,63 @@ export default function Work({ navigation }) {
                                     }}>
                                     Have you finished  {task_paritions[minTask.current].title} ?
                                 </Text>
-                                <Button
-                                    title="Yes, what's next"
-                                    size="lg"
-                                    onPress={() => {
-                                        // Continur Timer
-                                        // 
-                                        handleBreakFeedback({ type: "next", index })
-                                        // setBreakFeedback(false)
-                                        // setPause(false)
-                                        // setIndex(index + 1)
-                                        // /// Disptach Current task as finished and prepare next task
-                                        // setNextMiniTask({ current: minTask.current + 1 })
-                                    }}
-                                />
-                                <View
-                                    style={{ margin: 3 }}
-                                />
-                                <Button
-                                    title="No, let's continue"
-                                    size="lg"
-                                    onPress={() => {
-                                        handleBreakFeedback({ type: "continue", index })
-                                        // setWorkBreak(false)
-                                        // setPause(false)
-                                        // setIndex(index + 1)
 
-                                        // setWPT(workPatternTest + 5)
-                                    }}
-                                />
+                                {/* If there is 0 task left, show Finish btn */}
+
+
+                                {
+                                    minTask.current === minTask.size ?
+                                        <>
+
+                                            <Button
+                                                title="Yes, what's next"
+                                                size="lg"
+                                                onPress={() => {
+                                                    // Continur Timer
+                                                    // 
+                                                    handleBreakFeedback({ type: "next", index })
+                                                    // setBreakFeedback(false)
+                                                    // setPause(false)
+                                                    // setIndex(index + 1)
+                                                    // /// Disptach Current task as finished and prepare next task
+                                                    // setNextMiniTask({ current: minTask.current + 1 })
+                                                }}
+                                            />
+                                            <View
+                                                style={{ margin: 3 }}
+                                            />
+                                            <Button
+                                                title="No, let's continue"
+                                                size="lg"
+                                                onPress={() => {
+                                                    handleBreakFeedback({ type: "continue", index })
+                                                    // setWorkBreak(false)
+                                                    // setPause(false)
+                                                    // setIndex(index + 1)
+
+                                                    // setWPT(workPatternTest + 5)
+                                                }}
+                                            />
+                                        </>
+
+                                        :
+
+                                        <Button
+                                            title="Finish"
+                                            size="lg"
+                                            onPress={() => {
+                                                // Continur Timer
+                                                // 
+                                                handleBreakFeedback({ type: "next", index })
+                                                // setBreakFeedback(false)
+                                                // setPause(false)
+                                                // setIndex(index + 1)
+                                                // /// Disptach Current task as finished and prepare next task
+                                                // setNextMiniTask({ current: minTask.current + 1 })
+                                            }}
+                                        />
+
+                                }
 
                             </View>
                             :
