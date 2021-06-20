@@ -27,6 +27,15 @@ export default function Home({ navigation }) {
                     <>
                         <Text>Welcome back</Text>
                         <Text> {work !== null ? work.taskName : "Loading"}</Text>
+
+
+                        {/* <Button
+                            title="Clear"
+                            onPress={() => {
+                                AsyncStorage.clear()
+                            }}
+                        /> */}
+
                         <Button
                             title="Continue"
                             onPress={() => {

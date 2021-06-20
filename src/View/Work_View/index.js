@@ -9,8 +9,6 @@ import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
 import { ProgressUI } from '../../components/ProgressUI'
 import { Button } from '../../components/NextBtn'
-import { set } from 'react-native-reanimated'
-
 
 const viewWidth = Dimensions.get("screen").width
 
@@ -22,13 +20,20 @@ export default function Work({ navigation }) {
     const [index, setIndex] = useState(0)
     const [break_Index, setBreakIndex] = useState(0)
     const [workPatternTest, setWPT] = useState(10)
-
     const { setup, work } = useContext(ContextProvider)
+    const { task_paritions, taskName, taskGoal } = work
+    const [minTask, setNextMiniTask] = useState({ current: 0, length: task_paritions.length })
+    console.log(task_paritions[minTask.current]);
+    // console.log(minTask);
+
+
+
 
     // const { time_scope } = work
     // const workPattern = time_scope.workingPattern === "305" ? 1800 : 2700
     // const workPatternTest = 10
 
+    // console.log(task_paritions);
     useEffect(() => {
 
         {/*
@@ -38,15 +43,14 @@ export default function Work({ navigation }) {
                     B) Continue timmer
                 
             Break 
-               If index is  0min left, Start Break
-               Break Timer start
-               Break should run in the background as many user will likey go to other apps.
-               Enable Notification so the user can get reminder or sound singla when break is over
+            If index is  0min left, Start Break
+            Break Timer start
+            Break should run in the background as many user will likey go to other apps.
+            Enable Notification so the user can get reminder or sound singla when break is over
 
-               If index of break is less than 0.5min, ask is user want to continue to next min-task
-                   Yes ) Conntinue to new task
-                   No) ReSet timmer and conitune with previous task
-                   
+            If index of break is less than 0.5min, ask is user want to continue to next min-task
+                Yes ) Conntinue to new task
+                No) ReSet timmer and conitune with previous task
     */}
 
         //_________________________
@@ -279,16 +283,19 @@ export default function Work({ navigation }) {
                         flex: 1,
                         flexGrow: 1,
                         // backgroundColor: "grey",
-                        // width: viewWidth - 50,
+                        // width: "100%",
                         justifyContent: "center",
+                        // alignItems:"flex-start",
                         paddingLeft: 10,
                         // alignItems: "flex-start",
                         // padding: 20
                     }}
                 >
-                    <Text style={styles.miniTitle}>Mini Task Title</Text>
+                    <Text style={styles.miniTitle}>
+                        {task_paritions[minTask.current].title}
+                    </Text>
                     <Text style={styles.miniDesc}>
-                        Mini Task Description and other detail related to the task
+                        {task_paritions[minTask.current].description}
                     </Text>
                 </View>
                 {
@@ -373,13 +380,13 @@ export default function Work({ navigation }) {
                                 }}
                             >
                                 <Text style={[styles.miniDesc, { fontSize: 21, alignSelf: "center" }]}>
-                                    <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text>
-                                    Mini Task Description and other detail related to the task
-                                    <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text>
+                                    {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
+                                    {taskGoal}
+                                    {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
 
                                 </Text>
                                 <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
-                                    - Unamed
+                                    {taskName}
                                 </Text>
                             </View>
                         </>
