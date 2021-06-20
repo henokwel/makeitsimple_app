@@ -4,6 +4,8 @@ import {
     View, Text, Dimensions,
     Animated, Pressable, Vibration,
 } from 'react-native'
+import LottieView from 'lottie-react-native';
+
 import { CommonActions } from '@react-navigation/native'
 import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
@@ -38,7 +40,7 @@ export default function Work({ navigation }) {
                 setPause(false)
                 setIndex(index + 1)
                 /// Disptach Current task as finished and prepare next task
-                setNextMiniTask({ current: minTask.current + 1, size: task_paritions.length  })
+                setNextMiniTask({ current: minTask.current + 1, size: task_paritions.length })
                 setWorkBreak(false)
             }
                 break;
@@ -53,7 +55,8 @@ export default function Work({ navigation }) {
         }
     }
 
-    const handleOnFinish = () =>{
+    const handleOnFinish = () => {
+        console.log("Handle Finish ");
 
         // Clean AsyncStorage 
         // Naviagte to Home, ready for next Setup
@@ -303,20 +306,9 @@ export default function Work({ navigation }) {
                                         <Button
                                             title="Finish"
                                             size="lg"
-                                            onPress={() => {
-                                                // Continur Timer
-                                                // 
-                                                handleBreakFeedback({ type: "next", index })
-                                                // setBreakFeedback(false)
-                                                // setPause(false)
-                                                // setIndex(index + 1)
-                                                // /// Disptach Current task as finished and prepare next task
-                                                // setNextMiniTask({ current: minTask.current + 1 })
-                                            }}
+                                            onPress={handleOnFinish}
                                         />
-
                                 }
-
                             </View>
                             :
                             <View></View>
@@ -330,6 +322,7 @@ export default function Work({ navigation }) {
 
             <View style={styles.container}>
                 <StatusBar />
+
                 <View
                     style={{
                         flex: 1,
@@ -349,6 +342,7 @@ export default function Work({ navigation }) {
                     <Text style={styles.miniDesc}>
                         {task_paritions[minTask.current].description}
                     </Text>
+
                 </View>
                 {
                     //  Work View  END --------------------------------------
@@ -403,6 +397,7 @@ export default function Work({ navigation }) {
                                     margin: 10,
                                     width: viewWidth,
                                     justifyContent: "center",
+                                    zIndex: 0
                                 }}
                             >
 
@@ -439,6 +434,8 @@ export default function Work({ navigation }) {
                                 <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
                                     {taskName}
                                 </Text>
+
+
                             </View>
                         </>
                     //  Work  View END --------------------------------------

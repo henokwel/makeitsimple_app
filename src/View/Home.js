@@ -4,6 +4,7 @@ import { Button } from '../components/NextBtn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { workReducer } from '../Context/WorkReducer';
 import { ContextProvider } from '../Context/MyContext';
+import LottieView from 'lottie-react-native';
 
 export default function Home({ navigation }) {
 
@@ -11,6 +12,7 @@ export default function Home({ navigation }) {
 
     return (
         <View style={styles.container}>
+ 
             {
                 work === null ?
                     <>
