@@ -23,17 +23,38 @@ export default function Work({ navigation }) {
     const { setup, work } = useContext(ContextProvider)
     const { task_paritions, taskName, taskGoal } = work
     const [minTask, setNextMiniTask] = useState({ current: 0, length: task_paritions.length })
-    console.log(task_paritions[minTask.current]);
+    // console.log(task_paritions[minTask.current]);
     // console.log(minTask);
 
 
+
+    /// handle Break btn 
+    const handleBreakFeedback = ({ type, index }) => {
+        if (type === "next") {
+            
+        }
+        switch (type) {
+            case "next": {
+                console.log("Next", index);
+
+            }
+            break;
+
+            case "continue": {
+                console.log("continue", index);
+            }
+                break;
+
+            default:
+                break;
+        }
+    }
 
 
     // const { time_scope } = work
     // const workPattern = time_scope.workingPattern === "305" ? 1800 : 2700
     // const workPatternTest = 10
 
-    // console.log(task_paritions);
     useEffect(() => {
 
         {/*
@@ -105,10 +126,6 @@ export default function Work({ navigation }) {
             setWorkBreak(true)
             setIndex(0)
 
-            // if (index === 4) {
-            //     return
-            // }
-
         } else if ((workBreak ? index : - 10) === 3) {
             setIndex(index + 1)
             setPause(true)
@@ -133,28 +150,6 @@ export default function Work({ navigation }) {
         //}
 
     }, [index, pause])
-
-
-    // Feedback
-    // useEffect(() => {
-    // const interval = setInterval(() => {
-    //     setIndex((index + 1) % (50 + 1))
-    // }, 1000)
-    // return () => {
-    //     clearInterval(interval)
-    // }
-    // }, [index])
-
-
-    // useEffect(() => {
-    //     const nav = navigation.addListener('gestureStart', (e) => {
-    //         // Do something
-    //         return console.log(e);
-    //     });
-    //     // console.log(nav);
-    // }, [navigation])
-
-
 
     return (
         workBreak ?
@@ -217,7 +212,9 @@ export default function Work({ navigation }) {
 
                     {
                         workBreak_Feedback ?
-                            //  Break Feedback  View --------------------------------------
+
+                            //  Break feedback  View --------------------------------------
+
                             <View
                                 style={{
                                     // marginTop: 50,
@@ -236,18 +233,21 @@ export default function Work({ navigation }) {
                                         fontSize: 21,
                                         width: "50%",
                                         paddingBottom: 10
-                                    }}
-                                >Have you finished  mini-Task-name ? </Text>
+                                    }}>
+                                    Have you finished  {task_paritions[minTask.current].title} ?
+                                </Text>
                                 <Button
                                     title="Yes, what's next"
                                     size="lg"
                                     onPress={() => {
                                         // Continur Timer
                                         // 
-                                        setBreakFeedback(false)
-                                        setPause(false)
-                                        setIndex(index + 1)
-                                        /// Disptach Current task as finished and prepare next task
+                                        handleBreakFeedback({ type: "next", index })
+                                        // setBreakFeedback(false)
+                                        // setPause(false)
+                                        // setIndex(index + 1)
+                                        // /// Disptach Current task as finished and prepare next task
+                                        // setNextMiniTask({ current: minTask.current + 1 })
                                     }}
                                 />
                                 <View
@@ -257,9 +257,10 @@ export default function Work({ navigation }) {
                                     title="No, let's continue"
                                     size="lg"
                                     onPress={() => {
-                                        setWorkBreak(false)
-                                        setPause(false)
-                                        setIndex(index + 1)
+                                        handleBreakFeedback({ type: "continue", index })
+                                        // setWorkBreak(false)
+                                        // setPause(false)
+                                        // setIndex(index + 1)
 
                                         // setWPT(workPatternTest + 5)
                                     }}
@@ -307,8 +308,7 @@ export default function Work({ navigation }) {
                             style={{
                                 flex: 1,
                                 backgroundColor: "#84B7B6",
-                                width: viewWidth
-                                ,
+                                width: viewWidth,
                                 justifyContent: "center",
                                 alignItems: "center",
                                 borderTopEndRadius: 20,
@@ -336,7 +336,7 @@ export default function Work({ navigation }) {
                                     setFeedBack(false)
                                     setPause(false)
                                     setIndex(index + 1)
-                                    setWPT(workPatternTest + 5)
+                                    setWPT(workPatternTest + 15)
                                 }}
                             />
                         </View>
