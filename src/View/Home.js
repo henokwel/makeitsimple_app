@@ -46,6 +46,7 @@ export default function Home({ navigation }) {
                         />
                     </>
             }
+            {/* A Button for New Task and abandon the unfinsihed Task */}
         </View>
     )
 }

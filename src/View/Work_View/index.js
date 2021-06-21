@@ -5,12 +5,13 @@ import {
     Animated, Pressable, Vibration,
 } from 'react-native'
 import LottieView from 'lottie-react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions } from '@react-navigation/native'
 import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
 import { ProgressUI } from '../../components/ProgressUI'
 import { Button } from '../../components/NextBtn'
+import { set } from 'react-native-reanimated';
 
 const viewWidth = Dimensions.get("screen").width
 
@@ -46,7 +47,7 @@ export default function Work({ navigation }) {
                 break;
 
             case "continue": {
-                console.log("continue", index);
+                // console.log("continue", index);
             }
                 break;
 
@@ -56,12 +57,19 @@ export default function Work({ navigation }) {
     }
 
     const handleOnFinish = () => {
-        console.log("Handle Finish ");
+        // console.log("Handle Finish ");
 
-        // Clean AsyncStorage 
-        // Naviagte to Home, ready for next Setup
         // Reset all State
-
+        setFeedBack(false)
+        setWorkBreak(false)
+        setBreakFeedback(false)
+        setPause(false)
+        setIndex(0)
+        setWPT(10)
+        // Clean AsyncStorage 
+        AsyncStorage.clear()
+        // Naviagte to Home, ready for next Setup
+        navigation.navigate("Home")
     }
 
 
@@ -174,8 +182,8 @@ export default function Work({ navigation }) {
 
     }, [index, pause])
 
-    console.log("minTask Current", minTask.current);
-    console.log("minTask Length", minTask.size);
+    // console.log("minTask Current", minTask.current);
+    // console.log("minTask Length", minTask.size);
 
     return (
         workBreak ?
@@ -266,10 +274,16 @@ export default function Work({ navigation }) {
                                 {/* If there is 0 task left, show Finish btn */}
 
 
-                                {
-                                    minTask.current === minTask.size ?
-                                        <>
 
+                                {
+                                    minTask.current === minTask.size - 1 ?
+                                        <Button
+                                            title="Finish"
+                                            size="lg"
+                                            onPress={handleOnFinish}
+                                        />
+                                        :
+                                        <>
                                             <Button
                                                 title="Yes, what's next"
                                                 size="lg"
@@ -295,19 +309,10 @@ export default function Work({ navigation }) {
                                                     // setWorkBreak(false)
                                                     // setPause(false)
                                                     // setIndex(index + 1)
-
                                                     // setWPT(workPatternTest + 5)
                                                 }}
                                             />
                                         </>
-
-                                        :
-
-                                        <Button
-                                            title="Finish"
-                                            size="lg"
-                                            onPress={handleOnFinish}
-                                        />
                                 }
                             </View>
                             :
@@ -429,13 +434,10 @@ export default function Work({ navigation }) {
                                     {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
                                     {taskGoal}
                                     {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
-
                                 </Text>
                                 <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
                                     {taskName}
                                 </Text>
-
-
                             </View>
                         </>
                     //  Work  View END --------------------------------------
