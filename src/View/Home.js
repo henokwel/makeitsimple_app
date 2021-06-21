@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
 
     return (
         <View style={styles.container}>
- 
+
             {
                 work === null ?
                     <>
@@ -43,6 +43,15 @@ export default function Home({ navigation }) {
                             title="Continue"
                             onPress={() => {
                                 navigation.navigate('Work')
+                            }}
+                        />
+
+
+                        <Button
+                            title="Start New Task"
+                            onPress={() => {
+                                AsyncStorage.clear()
+                                navigation.navigate('Setup')
                             }}
                         />
                     </>

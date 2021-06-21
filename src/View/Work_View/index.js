@@ -21,14 +21,14 @@ export default function Work({ navigation }) {
     const [pause, setPause] = useState(false)
     const [index, setIndex] = useState(0)
     const [break_Index, setBreakIndex] = useState(0)
-    const {  work } = useContext(ContextProvider)
-    const { task_paritions, taskName, taskGoal } = work
-    const [workPatternTest, setWPT] = useState(10)
+    const { work } = useContext(ContextProvider)
+    const { task_paritions, taskName, taskGoal, work_pattern } = work
+    const [workPatternTest, setWPT] = useState(work_pattern === "305" ? 1800 : 2700)
     const [minTask, setNextMiniTask] = useState({ current: 0, size: task_paritions.length })
     // console.log(task_paritions[minTask.current]);
     // console.log(minTask);
     console.log("work  => ", work);
- 
+
 
     /// handle Break btn 
     const handleBreakFeedback = ({ type, index }) => {
@@ -126,8 +126,8 @@ export default function Work({ navigation }) {
         if (pause) {
             setIndex(index)
 
-            ///  Feedback Should only run ONCE!!
-        } else if ((workPatternTest === 10 ? index : 0) === workPatternTest - 2) {
+            ///  Feedback Should only run ONCE!! 5 Min Before timmer ends
+        } else if ((workPatternTest === workPatternTest ? index : 0) === workPatternTest - 300) {
             console.log("Work Feedback Only Once---- Runing");
 
             // Get User Feedback
@@ -157,7 +157,11 @@ export default function Work({ navigation }) {
             setWorkBreak(true)
             setIndex(0)
 
-        } else if ((workBreak ? index : - 10) === 3) {
+
+            // ==>>  5 min before timmer End Start Feedback in WORK   <<===
+
+        } else if ((workBreak ? index : - 10) === 300) {
+
             // Start Breaks Feedback 
 
             // console.log("Runnning...........");
