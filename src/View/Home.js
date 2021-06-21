@@ -9,6 +9,7 @@ import LottieView from 'lottie-react-native';
 export default function Home({ navigation }) {
 
     const { work } = useContext(ContextProvider)
+    console.log(work);
 
     return (
         <View style={styles.container}>

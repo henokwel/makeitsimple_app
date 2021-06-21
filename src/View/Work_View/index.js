@@ -11,7 +11,6 @@ import { styles } from './work.style'
 import { ContextProvider } from '../../Context/MyContext'
 import { ProgressUI } from '../../components/ProgressUI'
 import { Button } from '../../components/NextBtn'
-import { set } from 'react-native-reanimated';
 
 const viewWidth = Dimensions.get("screen").width
 
@@ -22,14 +21,14 @@ export default function Work({ navigation }) {
     const [pause, setPause] = useState(false)
     const [index, setIndex] = useState(0)
     const [break_Index, setBreakIndex] = useState(0)
-    const [workPatternTest, setWPT] = useState(10)
-    const { setup, work } = useContext(ContextProvider)
+    const {  work } = useContext(ContextProvider)
     const { task_paritions, taskName, taskGoal } = work
+    const [workPatternTest, setWPT] = useState(10)
     const [minTask, setNextMiniTask] = useState({ current: 0, size: task_paritions.length })
     // console.log(task_paritions[minTask.current]);
     // console.log(minTask);
-
-
+    console.log("work  => ", work);
+ 
 
     /// handle Break btn 
     const handleBreakFeedback = ({ type, index }) => {
@@ -56,20 +55,27 @@ export default function Work({ navigation }) {
         }
     }
 
-    const handleOnFinish = () => {
+    const handleOnFinish = async () => {
         // console.log("Handle Finish ");
 
         // Reset all State
-        setFeedBack(false)
-        setWorkBreak(false)
-        setBreakFeedback(false)
-        setPause(false)
-        setIndex(0)
-        setWPT(10)
+        // setFeedBack(false)
+        // setWorkBreak(false)
+        // setBreakFeedback(false)
+        // setPause(false)
+        // setIndex(0)
+        // setWPT(10)
         // Clean AsyncStorage 
-        AsyncStorage.clear()
         // Naviagte to Home, ready for next Setup
-        navigation.navigate("Home")
+        try {
+            // await AsyncStorage.clear()
+            await AsyncStorage.removeItem('@storage_Key')
+
+            navigation.navigate("Setup")
+        } catch (error) {
+            console.log("Error handle finish fn", error);
+
+        }
     }
 
 
@@ -280,7 +286,7 @@ export default function Work({ navigation }) {
                                         <Button
                                             title="Finish"
                                             size="lg"
-                                            onPress={handleOnFinish}
+                                            onPress={() => handleOnFinish()}
                                         />
                                         :
                                         <>
