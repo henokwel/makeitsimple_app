@@ -62,10 +62,12 @@ export default function TimeScope({ navigation }) {
             // setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
 
             const jsonValue = JSON.stringify({ ...setup, time, work_pattern: defaultWorkingPatter ? "305" : "451" })
-            console.log(setup);
 
+            
             await AsyncStorage.setItem('@storage_Key', jsonValue)
             setValiadateTime(true)
+
+
             navigation.navigate('Work')
         } catch (error) {
             console.log("error", error);

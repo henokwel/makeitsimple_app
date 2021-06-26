@@ -17,7 +17,7 @@ export default function Home({ navigation }) {
             {
                 work === null ?
                     <>
-                        <Text>MakeItSimple</Text>
+                        {/* <Text>MakeItSimple</Text> */}
                         <Text>Home</Text>
                         <Button
                             title="Next"
