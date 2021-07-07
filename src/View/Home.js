@@ -9,7 +9,7 @@ import LottieView from 'lottie-react-native';
 export default function Home({ navigation }) {
 
     const { work } = useContext(ContextProvider)
-    console.log(work);
+    console.log("Home work data", work);
 
     return (
         <View style={styles.container}>
@@ -49,8 +49,8 @@ export default function Home({ navigation }) {
 
                         <Button
                             title="Start New Task"
-                            onPress={() => {
-                                AsyncStorage.clear()
+                            onPress={async () => {
+                                await AsyncStorage.clear()
                                 navigation.navigate('Setup')
                             }}
                         />

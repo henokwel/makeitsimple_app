@@ -27,7 +27,6 @@ export default function Work({ navigation }) {
     const [minTask, setNextMiniTask] = useState({ current: 0, size: task_paritions.length })
     // console.log(task_paritions[minTask.current]);
     // console.log(minTask);
-    console.log("work  => ", work);
 
 
     /// handle Break btn 
@@ -35,7 +34,7 @@ export default function Work({ navigation }) {
 
         switch (type) {
             case "next": {
-                console.log("Next", index);
+                // console.log("Next", index);
                 setBreakFeedback(false)
                 setPause(false)
                 setIndex(index + 1)
@@ -84,6 +83,7 @@ export default function Work({ navigation }) {
     // const workPatternTest = 10
 
     useEffect(() => {
+        console.log("Work data", work);
 
         {/*
             FeedBack  
@@ -196,262 +196,264 @@ export default function Work({ navigation }) {
     // console.log("minTask Length", minTask.size);
 
     return (
-        workBreak ?
-            //  Break View --------------------------------------
-            <View
-                style={{
-                    flex: 1,
-                    width: viewWidth,
-                    // justifyContent: "center",
-                    // alignItems: "center",
-                    backgroundColor: "#84B7B6",
-                    // height: 150
-                }}>
 
+        work === null ? <Text>Something went wrong</Text> :
+            workBreak ?
+                //  Break View --------------------------------------
                 <View
                     style={{
-                        // flex: 1,
-                        alignItems: "center",
-                        justifyContent: "flex-start",
-                        // backgroundColor: "green",
-                        height: 330,
-                        padding: 10,
-                        width: "100%",
-                    }}>
-
-                    <Text
-                        style={{
-                            fontSize: 34,
-                            fontWeight: "bold"
-                        }}>
-                        Good job !
-                    </Text>
-
-                    <Text
-                        style={{
-                            fontSize: 23,
-                            width: "50%"
-                        }}>
-                        Take a 5 min
-                        break and move around
-                    </Text>
-
-                </View>
-                <View
-                    style={{
-                        // flex: 1,
+                        flex: 1,
                         width: viewWidth,
-                        // height: 200,
-                        justifyContent: "center",
-                        // backgroundColor: "blue",
-                        // height:500
+                        // justifyContent: "center",
+                        // alignItems: "center",
+                        backgroundColor: "#84B7B6",
+                        // height: 150
                     }}>
 
-                    <ProgressUI
-                        step={index} steps={7} height={75}
-                        pause={pause}
-                        state={true}
-                        type="work"
-                    />
+                    <View
+                        style={{
+                            // flex: 1,
+                            alignItems: "center",
+                            justifyContent: "flex-start",
+                            // backgroundColor: "green",
+                            height: 330,
+                            padding: 10,
+                            width: "100%",
+                        }}>
 
+                        <Text
+                            style={{
+                                fontSize: 34,
+                                fontWeight: "bold"
+                            }}>
+                            Good job !
+                        </Text>
+
+                        <Text
+                            style={{
+                                fontSize: 23,
+                                width: "50%"
+                            }}>
+                            Take a 5 min
+                            break and move around
+                        </Text>
+
+                    </View>
+                    <View
+                        style={{
+                            // flex: 1,
+                            width: viewWidth,
+                            // height: 200,
+                            justifyContent: "center",
+                            // backgroundColor: "blue",
+                            // height:500
+                        }}>
+
+                        <ProgressUI
+                            step={index} steps={7} height={75}
+                            pause={pause}
+                            state={true}
+                            type="work"
+                        />
+
+                        {
+                            workBreak_Feedback ?
+
+                                //  Break feedback  View --------------------------------------
+
+                                <View
+                                    style={{
+                                        // marginTop: 50,
+                                        backgroundColor: "#84B7B6",
+                                        width: viewWidth,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        borderTopEndRadius: 20,
+                                        borderTopLeftRadius: 10,
+                                        paddingTop: 14
+                                        // height: 300
+                                    }}>
+
+                                    <Text
+                                        style={{
+                                            fontSize: 21,
+                                            width: "50%",
+                                            paddingBottom: 10
+                                        }}>
+                                        Have you finished  {task_paritions[minTask.current].title} ?
+                                    </Text>
+
+                                    {/* If there is 0 task left, show Finish btn */}
+
+
+
+                                    {
+                                        minTask.current === minTask.size - 1 ?
+                                            <Button
+                                                title="Finish"
+                                                size="lg"
+                                                onPress={() => handleOnFinish()}
+                                            />
+                                            :
+                                            <>
+                                                <Button
+                                                    title="Yes, what's next"
+                                                    size="lg"
+                                                    onPress={() => {
+                                                        // Continur Timer
+                                                        // 
+                                                        handleBreakFeedback({ type: "next", index })
+                                                        // setBreakFeedback(false)
+                                                        // setPause(false)
+                                                        // setIndex(index + 1)
+                                                        // /// Disptach Current task as finished and prepare next task
+                                                        // setNextMiniTask({ current: minTask.current + 1 })
+                                                    }}
+                                                />
+                                                <View
+                                                    style={{ margin: 3 }}
+                                                />
+                                                <Button
+                                                    title="No, let's continue"
+                                                    size="lg"
+                                                    onPress={() => {
+                                                        handleBreakFeedback({ type: "continue", index })
+                                                        // setWorkBreak(false)
+                                                        // setPause(false)
+                                                        // setIndex(index + 1)
+                                                        // setWPT(workPatternTest + 5)
+                                                    }}
+                                                />
+                                            </>
+                                    }
+                                </View>
+                                :
+                                <View></View>
+                        }
+                    </View>
+                </View>
+
+                //  Break View  END --------------------------------------
+                :
+                //  Work View --------------------------------------
+
+                <View style={styles.container}>
+                    <StatusBar />
+
+                    <View
+                        style={{
+                            flex: 1,
+                            flexGrow: 1,
+                            // backgroundColor: "grey",
+                            // width: "100%",
+                            justifyContent: "center",
+                            // alignItems:"flex-start",
+                            paddingLeft: 10,
+                            // alignItems: "flex-start",
+                            // padding: 20
+                        }}
+                    >
+                        <Text style={styles.miniTitle}>
+                            {task_paritions[minTask.current].title}
+                        </Text>
+                        <Text style={styles.miniDesc}>
+                            {task_paritions[minTask.current].description}
+                        </Text>
+
+                    </View>
                     {
-                        workBreak_Feedback ?
+                        //  Work View  END --------------------------------------
 
-                            //  Break feedback  View --------------------------------------
-
+                        feedback === true ?
+                            //  FeedBack  View --------------------------------------
                             <View
                                 style={{
-                                    // marginTop: 50,
+                                    flex: 1,
                                     backgroundColor: "#84B7B6",
                                     width: viewWidth,
                                     justifyContent: "center",
                                     alignItems: "center",
                                     borderTopEndRadius: 20,
-                                    borderTopLeftRadius: 10,
-                                    paddingTop: 14
-                                    // height: 300
+                                    borderTopLeftRadius: 10
                                 }}>
+                                <Text>Feedback</Text>
+                                <Text>How is it going</Text>
 
-                                <Text
-                                    style={{
-                                        fontSize: 21,
-                                        width: "50%",
-                                        paddingBottom: 10
-                                    }}>
-                                    Have you finished  {task_paritions[minTask.current].title} ?
-                                </Text>
-
-                                {/* If there is 0 task left, show Finish btn */}
-
-
-
-                                {
-                                    minTask.current === minTask.size - 1 ?
-                                        <Button
-                                            title="Finish"
-                                            size="lg"
-                                            onPress={() => handleOnFinish()}
-                                        />
-                                        :
-                                        <>
-                                            <Button
-                                                title="Yes, what's next"
-                                                size="lg"
-                                                onPress={() => {
-                                                    // Continur Timer
-                                                    // 
-                                                    handleBreakFeedback({ type: "next", index })
-                                                    // setBreakFeedback(false)
-                                                    // setPause(false)
-                                                    // setIndex(index + 1)
-                                                    // /// Disptach Current task as finished and prepare next task
-                                                    // setNextMiniTask({ current: minTask.current + 1 })
-                                                }}
-                                            />
-                                            <View
-                                                style={{ margin: 3 }}
-                                            />
-                                            <Button
-                                                title="No, let's continue"
-                                                size="lg"
-                                                onPress={() => {
-                                                    handleBreakFeedback({ type: "continue", index })
-                                                    // setWorkBreak(false)
-                                                    // setPause(false)
-                                                    // setIndex(index + 1)
-                                                    // setWPT(workPatternTest + 5)
-                                                }}
-                                            />
-                                        </>
-                                }
+                                <Button
+                                    title="It's good"
+                                    size="lg"
+                                    onPress={() => {
+                                        setFeedBack(false)
+                                        setPause(false)
+                                        setIndex(index + 1)
+                                    }}
+                                />
+                                <View
+                                    style={{ margin: 10 }}
+                                />
+                                <Button
+                                    title="I need 15min"
+                                    size="lg"
+                                    onPress={() => {
+                                        setFeedBack(false)
+                                        setPause(false)
+                                        setIndex(index + 1)
+                                        setWPT(workPatternTest + 15)
+                                    }}
+                                />
                             </View>
+
+                            //  FeedBack  View  END--------------------------------------
                             :
-                            <View></View>
+                            //  Work  View --------------------------------------
+                            <>
+                                <View
+                                    style={{
+                                        // flex: 1,
+                                        // backgroundColor: "#B09F63",
+                                        margin: 10,
+                                        width: viewWidth,
+                                        justifyContent: "center",
+                                        zIndex: 0
+                                    }}
+                                >
+
+                                    <Pressable
+                                        onPress={() => {
+                                            // Vibration.vibrate()
+                                            setPause(!pause)
+                                        }
+                                        }>
+                                        {/* <Text style={styles.text}>Progress bar</Text> */}
+                                        <ProgressUI
+                                            step={index} steps={workPatternTest} height={75}
+                                            state={true} pause={pause}
+                                        />
+                                    </Pressable>
+                                </View>
+
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        // backgroundColor: "blue", 
+                                        width: viewWidth - 40,
+                                        justifyContent: "center",
+                                        alignItems: "flex-start",
+                                        paddingLeft: 10,
+                                    }}
+                                >
+                                    <Text style={[styles.miniDesc, { fontSize: 21, alignSelf: "center" }]}>
+                                        {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
+                                        {taskGoal}
+                                        {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
+                                    </Text>
+                                    <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
+                                        {taskName}
+                                    </Text>
+                                </View>
+                            </>
+                        //  Work  View END --------------------------------------
                     }
                 </View>
-            </View>
-
-            //  Break View  END --------------------------------------
-            :
-            //  Work View --------------------------------------
-
-            <View style={styles.container}>
-                <StatusBar />
-
-                <View
-                    style={{
-                        flex: 1,
-                        flexGrow: 1,
-                        // backgroundColor: "grey",
-                        // width: "100%",
-                        justifyContent: "center",
-                        // alignItems:"flex-start",
-                        paddingLeft: 10,
-                        // alignItems: "flex-start",
-                        // padding: 20
-                    }}
-                >
-                    <Text style={styles.miniTitle}>
-                        {task_paritions[minTask.current].title}
-                    </Text>
-                    <Text style={styles.miniDesc}>
-                        {task_paritions[minTask.current].description}
-                    </Text>
-
-                </View>
-                {
-                    //  Work View  END --------------------------------------
-
-                    feedback === true ?
-                        //  FeedBack  View --------------------------------------
-                        <View
-                            style={{
-                                flex: 1,
-                                backgroundColor: "#84B7B6",
-                                width: viewWidth,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                borderTopEndRadius: 20,
-                                borderTopLeftRadius: 10
-                            }}>
-                            <Text>Feedback</Text>
-                            <Text>How is it going</Text>
-
-                            <Button
-                                title="It's good"
-                                size="lg"
-                                onPress={() => {
-                                    setFeedBack(false)
-                                    setPause(false)
-                                    setIndex(index + 1)
-                                }}
-                            />
-                            <View
-                                style={{ margin: 10 }}
-                            />
-                            <Button
-                                title="I need 15min"
-                                size="lg"
-                                onPress={() => {
-                                    setFeedBack(false)
-                                    setPause(false)
-                                    setIndex(index + 1)
-                                    setWPT(workPatternTest + 15)
-                                }}
-                            />
-                        </View>
-
-                        //  FeedBack  View  END--------------------------------------
-                        :
-                        //  Work  View --------------------------------------
-                        <>
-                            <View
-                                style={{
-                                    // flex: 1,
-                                    // backgroundColor: "#B09F63",
-                                    margin: 10,
-                                    width: viewWidth,
-                                    justifyContent: "center",
-                                    zIndex: 0
-                                }}
-                            >
-
-                                <Pressable
-                                    onPress={() => {
-                                        // Vibration.vibrate()
-                                        setPause(!pause)
-                                    }
-                                    }>
-                                    {/* <Text style={styles.text}>Progress bar</Text> */}
-                                    <ProgressUI
-                                        step={index} steps={workPatternTest} height={75}
-                                        state={true} pause={pause}
-                                    />
-                                </Pressable>
-                            </View>
-
-                            <View
-                                style={{
-                                    flex: 1,
-                                    // backgroundColor: "blue", 
-                                    width: viewWidth - 40,
-                                    justifyContent: "center",
-                                    alignItems: "flex-start",
-                                    paddingLeft: 10,
-                                }}
-                            >
-                                <Text style={[styles.miniDesc, { fontSize: 21, alignSelf: "center" }]}>
-                                    {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
-                                    {taskGoal}
-                                    {/* <Text style={{ fontSize: 34, fontWeight: "bold" }}>"</Text> */}
-                                </Text>
-                                <Text style={[styles.miniTitle, { alignSelf: "flex-end", paddingRight: 15, marginTop: 14 }]}>
-                                    {taskName}
-                                </Text>
-                            </View>
-                        </>
-                    //  Work  View END --------------------------------------
-                }
-            </View>
     )
 }

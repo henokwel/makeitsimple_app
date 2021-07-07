@@ -15,6 +15,8 @@ export default function MyContext({ children }) {
     const [setup, setupDispatch] = useReducer(setupReducer, "")
 
     useEffect(() => {
+
+        console.log("MyContext set Work Data");
         async function getData() {
             try {
                 const jsonValue = await AsyncStorage.getItem('@storage_Key')

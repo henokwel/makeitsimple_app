@@ -32,7 +32,7 @@ export default function TimeScope({ navigation }) {
     const [modalVisible_Time, setModalVisible_Time] = useState(false);
     const [modalVisible_Pattern, setModalVisible_Pattern] = useState(false);
 
-    const { setupDispatch, setup } = useContext(ContextProvider)
+    const { setupDispatch, workDispatch, setup } = useContext(ContextProvider)
 
     const handleWorkingPattern = (type) => {
 
@@ -56,16 +56,15 @@ export default function TimeScope({ navigation }) {
                 setValiadateTime(false)
                 return;
             }
-
             // Check for number 
 
-            // setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
 
+            setupDispatch({ type: "time_scope", payload: { time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
             const jsonValue = JSON.stringify({ ...setup, time, work_pattern: defaultWorkingPatter ? "305" : "451" })
-
-            
             await AsyncStorage.setItem('@storage_Key', jsonValue)
             setValiadateTime(true)
+
+            workDispatch({ type: "userData", payload: { ...setup, time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
 
 
             navigation.navigate('Work')
