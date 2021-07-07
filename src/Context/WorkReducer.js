@@ -14,7 +14,7 @@ export const workReducer = (state, action) => {
 
     switch (action.type) {
         case "userData": {
-            console.log("Work Reducer Run");
+            // console.log("Work Reducer Run");
             return state = action.payload
         }
             break;

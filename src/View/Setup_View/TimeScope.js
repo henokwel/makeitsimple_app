@@ -47,7 +47,6 @@ export default function TimeScope({ navigation }) {
 
     const handleNext = async () => {
         try {
-
             if (!time.trim()) {
                 setValiadateTime(false)
                 return;
@@ -64,12 +63,12 @@ export default function TimeScope({ navigation }) {
             await AsyncStorage.setItem('@storage_Key', jsonValue)
             setValiadateTime(true)
 
+            // Save New Data to work
             workDispatch({ type: "userData", payload: { ...setup, time, work_pattern: defaultWorkingPatter ? "305" : "451" } })
-
 
             navigation.navigate('Work')
         } catch (error) {
-            console.log("error", error);
+            console.log("error Setup/Timescope", error);
         }
         // check if empty
     }

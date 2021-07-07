@@ -28,7 +28,7 @@ export default function Home({ navigation }) {
                     </>
                     :
                     <>
-                        <Text>Welcome back</Text>
+                        <Text>Welcome back to</Text>
                         <Text> {work !== null ? work.taskName : "Loading"}</Text>
 
 

@@ -15,8 +15,7 @@ export default function MyContext({ children }) {
     const [setup, setupDispatch] = useReducer(setupReducer, "")
 
     useEffect(() => {
-
-        console.log("MyContext set Work Data");
+        // console.log("MyContext set Work Data");
         async function getData() {
             try {
                 const jsonValue = await AsyncStorage.getItem('@storage_Key')
@@ -31,7 +30,6 @@ export default function MyContext({ children }) {
         getData()
     }, [])
 
-
     return (
         <ContextProvider.Provider value={{ setup, work, setupDispatch, workDispatch }}>
             {/* <ContextEditer.Provider value={{ setupDispatch,  workDispatch }}> */}
@@ -40,5 +38,3 @@ export default function MyContext({ children }) {
         </ContextProvider.Provider>
     )
 }
-
-

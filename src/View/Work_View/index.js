@@ -83,7 +83,7 @@ export default function Work({ navigation }) {
     // const workPatternTest = 10
 
     useEffect(() => {
-        console.log("Work data", work);
+        // console.log("Work data", work);
 
         {/*
             FeedBack  
@@ -197,8 +197,7 @@ export default function Work({ navigation }) {
 
     return (
 
-        work === null ? <Text>Something went wrong</Text> :
-            workBreak ?
+             workBreak ?
                 //  Break View --------------------------------------
                 <View
                     style={{
