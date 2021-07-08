@@ -120,7 +120,7 @@ export default function Task_divider({ navigation }) {
                 {/* <Pressable
             style={[styles.button, styles.buttonOpen]}
             onPress={() => setModalVisible(true)}
-        >
+         >
             <Text style={styles.textStyle}>Show Modal</Text>
         </Pressable> */}
 
@@ -131,21 +131,12 @@ export default function Task_divider({ navigation }) {
                 >
                     <View style={styles.Input_container}>
                         <ScrollView
-
                         // style={{ flex: 2 }}
                         // contentContainerStyle={{ flexGrow: 2 }}
-
                         >
-
-
                             {
                                 partitionsBox.map((box, index) => {
-                                    return <View
-                                        key={box.id}
-                                        style={styles.Input_Wrapper}>
-
-
-
+                                    return <View key={box.id} style={styles.Input_Wrapper}>
                                         <View style={styles.Input_Title_V}>
                                             <TextInput
                                                 onChangeText={(e) => handleInputChange(index, e, "title")}
@@ -204,23 +195,19 @@ export default function Task_divider({ navigation }) {
                                 // backgroundColor:"red"
                             }}>
                                 <AddBoxBtn
-                                    onPress={() => handleAddBox()}
+                                    onPress={handleAddBox}
                                 />
                             </View>
-
                         </ScrollView>
+                    </View>
 
+                    <View style={styles.Next_btn_container}>
+                        <Button
+                            title="Next"
+                            onPress={handleNext}
+                        />
                     </View>
                 </KeyboardAvoidingView>
-
-                <View style={styles.Next_btn_container}>
-                    <Button
-                        title="Next"
-                        onPress={handleNext}
-                    />
-                </View>
-
-
             </SafeAreaView>
         </DismissKeyBord>
     )

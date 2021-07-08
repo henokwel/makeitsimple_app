@@ -57,9 +57,12 @@ export const styles = StyleSheet.create({
         marginTop: 13,
     },
     Input_Text_Style: {
+        flex:1,
         fontSize: 23,
         fontWeight: "700",
-        color: themes.light.primaryText
+        color: themes.light.primaryText,
+        // backgroundColor:"green",
+        // width:"100%"
         // textAlign: "center"
     },
     Input_Text_Style_Desc: {
