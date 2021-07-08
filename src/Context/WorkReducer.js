@@ -29,6 +29,10 @@ export const workReducer = (state, action) => {
             }
         }
             break;
+        case "reset": {
+            return state = action.payload
+        }
+            break
 
         default:
             return state
