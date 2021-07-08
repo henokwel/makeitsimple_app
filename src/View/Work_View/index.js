@@ -41,11 +41,18 @@ export default function Work({ navigation }) {
                 setNextMiniTask({ current: minTask.current + 1, size: task_paritions.length })
                 setWorkBreak(false)
                 setIndex(0)
-             }
+            }
                 break;
 
             case "continue": {
                 // console.log("continue", index);
+                // setBreakFeedback(false)
+                setWorkBreak(false)
+                setPause(false)
+                /// Disptach Current task as not-finished and reseet task as new
+                setNextMiniTask({ current: minTask.current, size: task_paritions.length })
+                setWorkBreak(false)
+                setIndex(0)
             }
                 break;
 
