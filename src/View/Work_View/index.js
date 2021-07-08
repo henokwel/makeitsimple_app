@@ -62,8 +62,6 @@ export default function Work({ navigation }) {
     }
 
     const handleOnFinish = async () => {
-        // console.log("Handle Finish ");
-
         // Reset all State
         // setFeedBack(false)
         // setWorkBreak(false)
@@ -74,8 +72,9 @@ export default function Work({ navigation }) {
         // Clean AsyncStorage 
         // Naviagte to Home, ready for next Setup
         try {
-            // await AsyncStorage.clear()
-            await AsyncStorage.removeItem('@storage_Key')
+            // console.log("Handle Finish");
+            await AsyncStorage.clear()
+            // await AsyncStorage.removeItem('@storage_Key')
             navigation.navigate('Setup')
 
         } catch (error) {
@@ -298,11 +297,28 @@ export default function Work({ navigation }) {
 
                                 {
                                     minTask.current === minTask.size - 1 ?
-                                        <Button
-                                            title="Finish"
-                                            size="lg"
-                                            onPress={() => handleOnFinish()}
-                                        />
+                                        <>
+                                            <Button
+                                                title="Finish"
+                                                size="lg"
+                                                onPress={handleOnFinish}
+                                            />
+                                            <View
+                                                style={{ margin: 3 }}
+                                            />
+                                            <Button
+                                                title="No, let's continue"
+                                                size="lg"
+                                                onPress={() => {
+                                                    handleBreakFeedback({ type: "continue", index })
+                                                    // setWorkBreak(false)
+                                                    // setPause(false)
+                                                    // setIndex(index + 1)
+                                                    // setWPT(workPattern + 5)
+                                                }}
+                                            />
+
+                                        </>
                                         :
                                         <>
                                             <Button
