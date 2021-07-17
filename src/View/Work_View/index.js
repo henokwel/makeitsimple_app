@@ -54,13 +54,6 @@ export default function Work({ navigation }) {
                 setIndex(0)
             }
                 break;
-
-            case "finish": {
-                // navigation.navigate('Setup')
-                // AsyncStorage.clear()
-            }
-                break;
-
             default:
                 break;
         }
